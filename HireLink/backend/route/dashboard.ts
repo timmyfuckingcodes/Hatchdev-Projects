@@ -10,6 +10,38 @@ import User from "../models/user";
 const router = express.Router();
 
 
+//GET JOBSEEKER NAME AND EMAIL ADDRESS FOR DASHBOARD
+router.get("/employerinfo", authenticate, async (req: Request, res: Response) => {
+    const { id, role } = req.user;
+
+    if (role !== "employer") {
+        return res.status(403).json({
+            message: "Forbidden: Only employers can access employer dashboard"
+        });
+    }
+
+    try {
+        const employer = await User.findOne({ where: { id: id } });
+        if (!employer) {
+            return res.status(404).json({
+                message: "Employer profile not found"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Employer info retrieved successfully",
+            name: employer.firstName + ' ' + employer.lastName,
+            email: employer.email
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error
+        });
+    }
+});
+
+
 // Get dashboard stats for employer
 router.get("/employer", authenticate, async (req: Request, res: Response) => {
     const { id, role } = req.user;

@@ -29,9 +29,9 @@ const JobSeekerBio = () => {
             });     
             const data = await response.json();
             console.log()
-            console.log(data);
+            console.log(data.message);
             if (response.ok) {
-                navigate('/jobseeker/dashboard');
+                navigate('/jobseeker');
             }
         } catch (error) {
             console.error('Error fetching profile:', error);

@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { Briefcase, Building2, LogOut, Menu, X } from 'lucide-react';
-
+import {useEmployerProfile} from '../../../hooks/Use-employerProfile';
 interface HeaderProps {
     userName?: string;
     userEmail?: string;
 }
 
-export const EmployerDashboardNav: React.FC<HeaderProps> = ({
-    userName = "Sarah Johnson",
-    userEmail = "user@example.com"
-}) => {
+export const EmployerDashboardNav: React.FC<HeaderProps> = (
+//     {
+//     userName = "Sarah Johnson",
+//     userEmail = "user@example.com"
+// }
+) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const { UserInfo } = useEmployerProfile(localStorage.getItem('jwt') || '');
+   
     return (
         // Changed 'relative' to 'sticky top-0 z-50' to make it stick to the top
         <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -47,7 +51,7 @@ export const EmployerDashboardNav: React.FC<HeaderProps> = ({
                         <div className="flex items-center gap-2 shrink-0">
                             <Building2 className="w-5 h-6 text-gray-500" />
                             <button className="text-gray-600 hover:text-gray-900">
-                                <span className="text-md text-gray-800 font-medium ml-2">{userName}</span>
+                                <span className="text-md text-gray-800 font-medium ml-2">{UserInfo.name}</span>
                             </button>
                             <button className="p-1 rounded-md text-gray-800 hover:bg-teal-500 hover:text-white transition ml-1">
                                 <LogOut className="w-5 h-6" />
@@ -95,8 +99,8 @@ export const EmployerDashboardNav: React.FC<HeaderProps> = ({
                                 </div>
                             </div>
                             <div className="ml-3">
-                                <div className="text-base font-medium text-gray-800">{userName}</div>
-                                <div className="text-sm font-medium text-gray-500">{userEmail}</div>
+                                <div className="text-base font-medium text-gray-800">{UserInfo.name}</div>
+                                <div className="text-sm font-medium text-gray-500">{UserInfo.email}</div>
                             </div>
                             <button className="ml-auto flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-gray-500">
                                 <LogOut className="h-6 w-6" />

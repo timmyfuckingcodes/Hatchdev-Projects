@@ -17,14 +17,14 @@ const token = localStorage.getItem('jwt')
   const { UserInfo } = useJobseekerProfile(token || '');
   const [stats] = useState<DashboardStats>({
     totalApplications: 3,
-    shortlisted: 1,
+    shortlisted: 0,
     bookmarkedJobs: 2,
     profileCompletion: 100,
   });
 
   const [statusData] = useState<StatusBreakdown>({
     applied: 2,
-    shortlisted: 1,
+    shortlisted: 0,
     rejected: 0,
     hired: 0,
   });

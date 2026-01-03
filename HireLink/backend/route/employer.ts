@@ -5,6 +5,7 @@ import { authenticate } from "../middleware/auth";
 
 const router = express.Router();
 
+
 router.post("/profile",authenticate, async (req: Request, res: Response) => {
     const {id,role} = req.user;
     const user_Id = id;

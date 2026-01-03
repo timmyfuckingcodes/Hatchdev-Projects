@@ -10,6 +10,8 @@ router.post("/profile",authenticate, async (req: Request, res: Response) => {
     const {id,role} = req.user;
     const user_Id = id;
 
+    
+
     if (role !== "jobseeker") {
         return res.status(403).json({
             message: "Forbidden: Only jobseeker can create profiles"
@@ -25,7 +27,21 @@ router.post("/profile",authenticate, async (req: Request, res: Response) => {
           });
       }
     
+      const jobseekerExists = await Jobseeker.findOne({ where: { user_Id } });
+      if (jobseekerExists) {
+            return res.status(400).json({
+                message: "Jobseeker profile already exists for this user"
+            });
+        }
+
       const {phone,profile_summary} = req.body;
+
+      if(!phone || !profile_summary){
+        return res.status(400).json({
+            message: "All fields are required"
+        });
+      }
+      
 
     try {
        const full_name = user.firstName + " " + user.lastName;
