@@ -18,6 +18,7 @@ import PostNewJob from "./Dashboard/Employer/PostNewJob";
 import EditProfile from "./Dashboard/Employer/EditProfile";
 import Bookmarks from "./Bookmarks/Bookmarks";
 import EmployerProfile from "./Dashboard/Employer/EmployerProfile";
+import JobSeekerBio from "./Dashboard/JobSeeker/components/JobSeekerBio";
 
 function App() {
   const routes = [
@@ -38,6 +39,7 @@ function App() {
         { path: "applications", element: <MyApplications /> },
         { path: "settings", element: <Settings /> },
         { path: "bookmarks", element: <Bookmarks/> },
+        {path: "bio",element: <JobSeekerBio/>}
       ],
     },
 

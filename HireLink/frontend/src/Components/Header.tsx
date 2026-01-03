@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Briefcase, User, LogOut, Menu, X } from "lucide-react";
+import { useJobseekerProfile } from "../hooks/Use-jobseekerProfile";
+
 
 interface HeaderProps {
   userName?: string;
   userEmail?: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  userName = "John Doe",
-  userEmail = "user@example.com",
-}) => {
+
+
+export const Header: React.FC<HeaderProps> = () => {
+
+  const token = localStorage.getItem('jwt')
+    // Mock data - replace with actual API calls
+    const { UserInfo } = useJobseekerProfile(token || '');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -64,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({
               <User className="w-4 h-4 text-gray-500" />
               <button className="text-gray-600 hover:text-gray-900">
                 <span className="text-sm text-gray-800 font-medium ml-2">
-                  {userName}
+                  {UserInfo.name}
                 </span>
               </button>
               <button className="p-1 rounded-md text-gray-800 hover:bg-teal-500 hover:text-white transition ml-1">
@@ -129,10 +134,10 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               <div className="ml-3">
                 <div className="text-base font-medium text-gray-800">
-                  {userName}
+                  {UserInfo.name}
                 </div>
                 <div className="text-sm font-medium text-gray-500">
-                  {userEmail}
+                  {UserInfo.email}
                 </div>
               </div>
               <button className="ml-auto flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-gray-500">

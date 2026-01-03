@@ -32,7 +32,7 @@ const Login: React.FC = () => {
       console.log(res);
 
       if (res.message === 'success' && res.role === 'jobseeker') {
-        navigate('/jobseeker');
+        navigate('/jobseeker/bio');
       }
 
       if (res.message === 'success' && res.role === 'employer') {
